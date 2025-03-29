@@ -1,0 +1,15 @@
+pre.contrast_level:3
+pre.image_scale:128
+pre.training_batch_size:32
+pre.test_batch_size:32
+pre.test_path:Database/testing
+pre.train_path:Database/training
+mod.conv_filters:32,16,8,4
+mod.conv_sizes:16,32,64,128
+mod.conv_stridesX:1,1,1,1
+mod.conv_stridesY:1,1,1,1
+mod.conv_LReLU_alphas:0.1,0.1,0.1,0.1
+mod.conv_pool_sizes:2,2,2,2
+mod.dense_sizes:128,32
+mod.dense_activation_methods:relu,softmax
+run.log_mode:print
