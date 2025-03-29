@@ -2,31 +2,6 @@ import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"]="3"
 
 import tensorflow as tf
-import math
-
-def process_image(img, lbl):
-    img=tf.cast(img, tf.float32)/255.0
-    img=(tf.math.tanh((img-0.5)*5)+1)/2
-    img=tf.clip_by_value(img, 0.0, 1.0)
-
-    return img, lbl
-
-def collect_data(train_path, test_path, image_scale, training_batch_size, testing_batch_size):
-    train_dataset = tf.keras.preprocessing.image_dataset_from_directory(
-        train_path,
-        image_size=(image_scale, image_scale),
-        batch_size=training_batch_size,
-        label_mode='int'
-    )
-
-    test_dataset = tf.keras.preprocessing.image_dataset_from_directory(
-        test_path,
-        image_size=(image_scale, image_scale),
-        batch_size=testing_batch_size,
-        label_mode='int'
-    )
-
-    return (train_dataset, test_dataset)
 
 def build_model(conv_filters, conv_sizes, conv_stridesX, conv_stridesY, conv_LReLU_alphas, conv_pool_sizes, dense_sizes, dense_activation_methods):
     seq=[]
