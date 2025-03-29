@@ -3,6 +3,8 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"]="3"
 
 import tensorflow as tf
 
+from collect_data import collect_data
+
 def build_model(conv_filters, conv_sizes, conv_stridesX, conv_stridesY, conv_LReLU_alphas, conv_pool_sizes, dense_sizes, dense_activation_methods):
     seq=[]
 
@@ -74,9 +76,6 @@ def init():
     compile_model(model)
 
     train_dataset, test_dataset=collect_data(config["pre.train_path"],config["pre.test_path"])
-
-    train_dataset.map(process_image)
-    test_dataset.map(process_image)
 
     return (config, model, train_dataset, test_dataset)
 
