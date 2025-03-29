@@ -16,6 +16,8 @@ This project includes a simple model for detecting a variety of skin diseases us
   - environmental variable editing
 - Flask:
   - web server hosting
+- Gdown:
+  - dynamically accessing training data
 ## Dependency Installation Guide
 ### Tensorflow
 On windows, you will need to have an NVIDIA GPU to take advantage of GPU acceloration. Additionally, you will need [CUDA](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/) installed. If you do not have an NVIDIA GPU, you will not be able to use tensorflow on the GPU and instead will need to use it on the CPU.
@@ -54,6 +56,8 @@ On linux:
 ```
 pip install flask
 ```
+
+### Gdown:
 
 
 ## Dataset Sources:
