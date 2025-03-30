@@ -1,3 +1,5 @@
+from install import install_and_init
+
 def load_config():
     config_raw=None
 
@@ -15,7 +17,10 @@ def load_config():
     
     return config
 
-def init():
+def init_AI():
+    from model_sys import build_model, compile_model
+    from Collector.collect_data import collect_data
+    
     config=load_config()
 
     model=build_model(
@@ -35,10 +40,20 @@ def init():
 
     return (config, model, train_dataset, test_dataset)
 
-def main():
-    print("Initializing local side...")
-    init_data=init()
-    print("Local side initiated!")
+
+def init():
+    print("Loading configuration file (config.txt)...")
+    config=load_config()
+    
+    print("Checking installation status...")
+
+    status=None
+    with open("ProgramData/did_install","r") as f:
+        status=f.read()
+
+    if status!="1":
+        print("Only minimal environemnt is installed, starting install protocol...")
+        install_and_init()
 
 if __name__=="__main__":
-    main()
+    init()
