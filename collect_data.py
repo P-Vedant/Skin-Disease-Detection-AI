@@ -7,8 +7,9 @@ done:
   -data normalizing and karas-ify-ing
 """
 
-import gdown #will use
+import gdown
 import math
+import os
 
 def process_image(img, lbl):
     img=tf.cast(img, tf.float32)/255.0
@@ -17,7 +18,17 @@ def process_image(img, lbl):
 
     return img, lbl
 
-def collect_data(train_path, test_path, image_scale, training_batch_size, testing_batch_size):
+def chk_repair_dataset():
+  if not (os.isdir("Database/Train") and os.isdir("Database/Test")):
+      try:
+        os.rmdir("Database")
+      except:
+        pass
+      gdown.download_folder(f"https://drive.google.com/uc?if={gdown_file_id}")
+
+def collect_data(image_scale, training_batch_size, testing_batch_size):
+    chk_repair_dataset()
+        
     train_dataset = tf.keras.preprocessing.image_dataset_from_directory(
         train_path,
         image_size=(image_scale, image_scale),
