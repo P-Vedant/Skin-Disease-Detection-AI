@@ -24,14 +24,6 @@ def process_image(img, lbl):
 
     return img, lbl
 
-def chk_repair_dataset(gdown_file_id):
-  if not (os.isdir("Database/Train") and os.isdir("Database/Test")):
-      try:
-        os.rmdir("Database")
-      except:
-        pass
-      gdown.download_folder(f"https://drive.google.com/uc?if={gdown_file_id}")
-
 def collect_data(gdown_file_id, image_scale, training_batch_size, testing_batch_size, contrast_strength):
     chk_repair_dataset(gdown_file_id)
         
