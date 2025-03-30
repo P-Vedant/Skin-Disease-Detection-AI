@@ -25,7 +25,7 @@ def init_env(packages):
 def load_config():
     config_raw=None
 
-    with open("config.txt","r") as f:
+    with open("ProgramData/config.txt","r") as f:
         config_raw=f.read()
     
     config_raw=config_raw.split("\n")
@@ -79,7 +79,7 @@ def chk_install_status():
     return status
 
 def init():
-    print("Loading configuration file (config.txt)...")
+    print("Loading configuration file (ProgramData/config.txt)...")
     config=load_config()
     
     print("Checking installation status...")
