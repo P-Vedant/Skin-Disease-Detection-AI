@@ -1,3 +1,6 @@
+import os
+import gdown
+
 def chk_repair_dataset(gdown_file_id):
   if not (os.isdir("Database/Train") and os.isdir("Database/Test")):
       try:
