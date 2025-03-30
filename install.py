@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-from collect_data import chk_repair_dataset
+from Collector.chk_repair_dataset import chk_repair_dataset
 
 def install_packages(packages):
   for package in packages:
