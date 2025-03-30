@@ -1,11 +1,4 @@
-import os
-os.environ["TF_CPP_MIN_LOG_LEVEL"]="3"
-
-import tensorflow as tf
-
-from collect_data import collect_data
-
-def build_model(conv_filters, conv_sizes, conv_stridesX, conv_stridesY, conv_LReLU_alphas, conv_pool_sizes, dense_sizes, dense_activation_methods):
+def build_model(tf, conv_filters, conv_sizes, conv_stridesX, conv_stridesY, conv_LReLU_alphas, conv_pool_sizes, dense_sizes, dense_activation_methods):
     seq=[]
 
 
@@ -32,7 +25,7 @@ def build_model(conv_filters, conv_sizes, conv_stridesX, conv_stridesY, conv_LRe
     
     return tf.keras.models.Sequential(seq)
 
-def compile_model(model):
+def compile_model(tf, model):
     model.compile(optimizer='adam',
     loss='sparse_categorical_crossentropy',
     metrics=['accuracy'])
