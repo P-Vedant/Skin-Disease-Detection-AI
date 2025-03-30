@@ -1,3 +1,4 @@
+pre.contrast_strength:5
 pre.image_scale:128
 pre.train_batch_size:32
 pre.test_batch_size:32
