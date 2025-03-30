@@ -40,29 +40,37 @@ def load_config():
     return config
 
 def init_AI(config):
-    from model_sys import build_model, compile_model
-    from Collector.collect_data import collect_data
+  from model_sys import build_model, compile_model
+  from Collector.collect_data import collect_data
+  
+  print("Initializing OS environs...")
+  
+  import os
+  os.environ["TF_CPP_MIN_LOG_LEVEL"]="3"
+  
+  print("Initializing tensorflow...")
+  import tensorflow as tf
+  
+  print("Building model...")
+  model=build_model(
+    tf,
+    config["mod.conv_filters"].split(","),
+    config["mod.sizes"].split(","),
+    config["mod.conv_stridesX"].split(","),
+    config["mod.conv_stridesY"].split(","),
+    config["mod.conv_LReLU_alpha"].split(","),
+    config["mod.conv_pool_sizes"].split(","),
+    config["mod.dense_sizes"].split(","),
+    config["mod.dense_activation_methods"].split(",")
+  )
 
-    print("Initializing tensorflow...")
-    import tensorflow as tf
+  print("Compiling model...")
+  compile_model(tf, model)
 
-    model=build_model(
-        tf,
-        config["mod.conv_filters"].split(","),
-        config["mod.sizes"].split(","),
-        config["mod.conv_stridesX"].split(","),
-        config["mod.conv_stridesY"].split(","),
-        config["mod.conv_LReLU_alpha"].split(","),
-        config["mod.conv_pool_sizes"].split(","),
-        config["mod.dense_sizes"].split(","),
-        config["mod.dense_activation_methods"].split(",")
-    )
-
-    compile_model(tf, model)
-
-    train_dataset, test_dataset=collect_data(tf, config["pre.gdown_file_id"], config["pre.train_batch_size"], config["pre.test_batch_size"], config["pre.contrast_strength"])
-
-    return (config, model, train_dataset, test_dataset)
+  print("Collecting data...")
+  train_dataset, test_dataset=collect_data(tf, config["pre.gdown_file_id"], config["pre.train_batch_size"], config["pre.test_batch_size"], config["pre.contrast_strength"])
+  
+  return (config, model, train_dataset, test_dataset)
 
 def chk_install_status():
     status=None
@@ -83,6 +91,7 @@ def init():
         print("Environemntal initialization protcol complete!")
     print("Starting A.I. initialization protocol...")
     model_env=init_ai(config)
+    print("Test INIT process V1.0.0 completed!")
 
 if __name__=="__main__":
     init()
