@@ -75,7 +75,7 @@ def init():
 
     compile_model(model)
 
-    train_dataset, test_dataset=collect_data(config["pre.gdown_file_id"], config["pre.train_batch_size"], config["pre.test_batch_size"])
+    train_dataset, test_dataset=collect_data(config["pre.gdown_file_id"], config["pre.train_batch_size"], config["pre.test_batch_size"], config["pre.contrast_strength"])
 
     return (config, model, train_dataset, test_dataset)
 
