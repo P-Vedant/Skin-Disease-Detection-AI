@@ -1,4 +1,26 @@
-from install import install_and_init
+from Collector.chk_repair_dataset import chk_repair_dataset
+
+import subprocess
+import sys
+
+def install_packages(packages):
+  for package in packages:
+    print(f"Installing {package}...", end="", flush=True)
+    res=subprocess.run([sys.executable, "-m", "pip", "install", package])
+    if res.return_code==0:
+      print("Success!")
+    else:
+      print("Failure!")
+      print(f"details:\n{res.stderr}")
+      print(f"As {package} is integral to the functionality of this project, this error must be resolved before continuing in the installation process.")
+      sys.exit(1)
+
+def init_env(packages):
+    print("Installing integral packages...")
+    install_modules(packages)
+    
+    print("Downloading sorted kaggle dataset via gdown...")
+    chk_repair_dataset()
 
 def load_config():
     config_raw=None
@@ -17,13 +39,15 @@ def load_config():
     
     return config
 
-def init_AI():
+def init_AI(config):
     from model_sys import build_model, compile_model
     from Collector.collect_data import collect_data
-    
-    config=load_config()
+
+    print("Initializing tensorflow...")
+    import tensorflow as tf
 
     model=build_model(
+        tf,
         config["mod.conv_filters"].split(","),
         config["mod.sizes"].split(","),
         config["mod.conv_stridesX"].split(","),
@@ -34,26 +58,31 @@ def init_AI():
         config["mod.dense_activation_methods"].split(",")
     )
 
-    compile_model(model)
+    compile_model(tf, model)
 
-    train_dataset, test_dataset=collect_data(config["pre.gdown_file_id"], config["pre.train_batch_size"], config["pre.test_batch_size"], config["pre.contrast_strength"])
+    train_dataset, test_dataset=collect_data(tf, config["pre.gdown_file_id"], config["pre.train_batch_size"], config["pre.test_batch_size"], config["pre.contrast_strength"])
 
     return (config, model, train_dataset, test_dataset)
 
+def chk_install_status():
+    status=None
+    with open("ProgramData/did_install","r") as f:
+        status=f.read()
+    return status
 
 def init():
     print("Loading configuration file (config.txt)...")
     config=load_config()
     
     print("Checking installation status...")
-
-    status=None
-    with open("ProgramData/did_install","r") as f:
-        status=f.read()
+    status=chk_install_status()
 
     if status!="1":
-        print("Only minimal environemnt is installed, starting install protocol...")
-        install_and_init()
+        print("Only minimal environemnt detected!\nStarting environmental initialization protocol...")
+        init_env() 
+        print("Environemntal initialization protcol complete!")
+    print("Starting A.I. initialization protocol...")
+    model_env=init_ai(config)
 
 if __name__=="__main__":
     init()
