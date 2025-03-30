@@ -10,10 +10,12 @@ done:
 import gdown
 import math
 import os
+import functools
 
 def process_image(img, lbl):
+  
     img=tf.cast(img, tf.float32)/255.0
-    img=(tf.math.tanh((img-0.5)*5)+1)/2
+    img=(tf.math.tanh((img-0.5)*5)+1)/2 #use smooth contrast, as this is better for medical scans (varied lighting, critical mid-tones)
     img=tf.clip_by_value(img, 0.0, 1.0)
 
     return img, lbl
@@ -26,7 +28,7 @@ def chk_repair_dataset(gdown_file_id):
         pass
       gdown.download_folder(f"https://drive.google.com/uc?if={gdown_file_id}")
 
-def collect_data(gdown_file_id, image_scale, training_batch_size, testing_batch_size):
+def collect_data(gdown_file_id, image_scale, training_batch_size, testing_batch_size, contrast_strength):
     chk_repair_dataset(gdown_file_id)
         
     train_dataset = tf.keras.preprocessing.image_dataset_from_directory(
@@ -43,4 +45,4 @@ def collect_data(gdown_file_id, image_scale, training_batch_size, testing_batch_
         label_mode='int'
     )
 
-    return (train_dataset.map(process_image), test_dataset.map(process_image)
+    return (train_dataset.map(functools.partial(process_image, contrast_strength=contrast_strength), test_dataset.map(functools.partial(process_image, contrast_strength=contrast_strength)))
