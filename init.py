@@ -72,6 +72,13 @@ def init_AI(config):
   
   return (config, model, train_dataset, test_dataset)
 
+def init_flask():
+  
+  import flask
+  #add vedants code here
+  #make sure to call the main loop somewhere on a seperate thread
+  pass
+
 def chk_install_status():
     status=None
     with open("ProgramData/did_install","r") as f:
@@ -87,13 +94,12 @@ def init():
 
     if status!="1":
         print("Only minimal environemnt detected!\nStarting environmental initialization protocol...")
-        init_env(config["pre.gdown_folder_id"]) 
+        init_env(config["pre.packages"],config["pre.gdown_folder_id"]) 
         print("Environemntal initialization protcol complete!")
     print("Starting A.I. initialization protocol...")
     model_env=init_ai(config)
-    print("Test INIT process V1.0.0 completed!")
-    #integrate init flask
-    #in flask, add main function
+    print("Initiating flask server...")
+    init_flask()
 
 if __name__=="__main__":
     init()
