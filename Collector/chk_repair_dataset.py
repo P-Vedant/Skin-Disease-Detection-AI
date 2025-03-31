@@ -10,4 +10,4 @@ def chk_repair_dataset(gdown_folder_id):
       pass
     gdown.download_folder(f"https://drive.google.com/uc?if={gdown_folder_id}")
     if downloaded_folder and os.os.path.isdir(downloaded_folder):
-      shutil.move(downloaded_folder, desired_folder_name)
+      shutil.move(downloaded_folder, "Database")
