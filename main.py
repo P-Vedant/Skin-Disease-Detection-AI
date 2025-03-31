@@ -15,12 +15,12 @@ def install_packages(packages):
       print(f"As {package} is integral to the functionality of this project, this error must be resolved before continuing in the installation process.")
       sys.exit(1)
 
-def init_env(packages):
+def init_env(packages, gdown_folder_id):
     print("Installing integral packages...")
     install_modules(packages)
     
     print("Downloading sorted kaggle dataset via gdown...")
-    chk_repair_dataset()
+    chk_repair_dataset(gdown_folder_id)
 
 def load_config():
     config_raw=None
@@ -87,7 +87,7 @@ def init():
 
     if status!="1":
         print("Only minimal environemnt detected!\nStarting environmental initialization protocol...")
-        init_env() 
+        init_env(config["pre.gdown_folder_id"]) 
         print("Environemntal initialization protcol complete!")
     print("Starting A.I. initialization protocol...")
     model_env=init_ai(config)
