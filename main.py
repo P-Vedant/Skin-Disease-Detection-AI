@@ -92,6 +92,8 @@ def init():
     print("Starting A.I. initialization protocol...")
     model_env=init_ai(config)
     print("Test INIT process V1.0.0 completed!")
+    #integrate init flask
+    #in flask, add main function
 
 if __name__=="__main__":
     init()
