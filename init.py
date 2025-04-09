@@ -1,5 +1,3 @@
-from Collector.chk_repair_dataset import chk_repair_dataset
-
 import subprocess
 import sys
 
