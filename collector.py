@@ -1,6 +1,5 @@
 import math
 import functools
-import gdown
 
 def process_image(img, lbl, contrast_strength=1, tf=None):
   
@@ -11,6 +10,7 @@ def process_image(img, lbl, contrast_strength=1, tf=None):
     return img, lbl
 
 def collect_data(tf, gdown_file_id, train_path, test_path, image_scale, training_batch_size, testing_batch_size, contrast_strength):
+    import gdown
     gdown.download_folder(f"https://drive.google.com/uc?if={gdown_folder_id}", output="Database")
         
     train_dataset = tf.keras.preprocessing.image_dataset_from_directory(
