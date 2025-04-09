@@ -9,7 +9,7 @@ def process_image(img, lbl, contrast_strength=1, tf=None):
 
     return img, lbl
 
-def collect_data(tf, gdown_file_id, image_scale, training_batch_size, testing_batch_size, contrast_strength):
+def collect_data(tf, gdown_file_id, train_path, test_path, image_scale, training_batch_size, testing_batch_size, contrast_strength):
     chk_repair_dataset(gdown_file_id)
         
     train_dataset = tf.keras.preprocessing.image_dataset_from_directory(
