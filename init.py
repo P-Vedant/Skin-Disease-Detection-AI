@@ -68,7 +68,7 @@ def init_AI(config):
   compile_model(tf, model)
 
   print("Collecting data...")
-  train_dataset, test_dataset=collect_data(tf, config["pre.gdown_file_id"], config["pre.train_batch_size"], config["pre.test_batch_size"], config["pre.contrast_strength"])
+  train_dataset, test_dataset=collect_data(tf, config["pre.gdown_file_id"], config["pre.train_path"], config["pre.test_path"], config["pre.train_batch_size"], config["pre.test_batch_size"], config["pre.contrast_strength"])
   
   return (config, model, train_dataset, test_dataset)
 
