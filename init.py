@@ -39,7 +39,7 @@ def load_config():
 
 def init_AI(config):
   from model_sys import build_model, compile_model
-  from Collector.collect_data import collect_data
+  from collector import collect_data
   
   print("Initializing OS environs...")
   
