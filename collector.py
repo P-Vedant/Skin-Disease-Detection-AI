@@ -27,4 +27,4 @@ def collect_data(tf, gdown_file_id, train_path, test_path, image_scale, training
         label_mode='int'
     )
 
-    return (train_dataset.map(functools.partial(process_image, contrast_strength=contrast_strength, tf=tf), test_dataset.map(functools.partial(process_image, contrast_strength=contrast_strength, tf=tf)))
+    return train_dataset.map(functools.partial(process_image, contrast_strength=contrast_strength, tf=tf), test_dataset.map(functools.partial(process_image, contrast_strength=contrast_strength, tf=tf)))
