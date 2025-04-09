@@ -5,7 +5,7 @@ pre.test_batch_size:32
 pre.gdown_folder_id:1BY5pjgAub4mGN5tsSrAlSJFuLh1iUfly
 pre.train_path:Database/train
 pre.test_path:Database/test
-pre.packages:tensorflow, gdown
+pre.packages:tensorflow,gdown,flask
 mod.conv_filters:32,16,8,4
 mod.conv_sizes:16,32,64,128
 mod.conv_stridesX:1,1,1,1
